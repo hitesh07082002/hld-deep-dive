@@ -393,6 +393,8 @@ The architecture works because it respects the reality that observability worklo
 
 That respect for workload differences is also what keeps the platform economically sane. Once each plane is allowed to optimize for its own retention, indexing, and query patterns, teams can deliver useful observability without forcing every byte of telemetry into the most expensive possible path.
 
+It is a specialization strategy that improves both user experience and cost discipline at the same time.
+
 ---
 
 ## Step 6: Deep Dives
@@ -572,3 +574,5 @@ Another important lesson is that ingestion durability and query freshness are re
 User experience matters here too. A platform can be technically correct and still frustrating if queries are unpredictable, alerts flap constantly, or schema conventions drift until cross-service search becomes guesswork. Mature observability products therefore invest in query planners, log field normalization, alert deduplication, mute semantics, and dashboard caching. Those features may feel secondary compared with raw ingestion throughput, but they are what make the system usable day to day. Engineers judge observability platforms by whether they can answer real incident questions quickly, not by how elegant the storage engine looked on paper.
 
 Finally, observability platforms need strong guardrails against accidental self-harm. The most expensive and destabilizing traffic often comes from customers doing ordinary things badly: shipping unbounded trace IDs as metric tags, turning on verbose debug logs across a fleet, or creating dashboard queries that explode cardinality. The architecture should expect that reality and defend itself with quotas, shaping, safe defaults, and clear operator tooling. A platform that only works for perfectly disciplined users is not actually production ready. A platform that remains useful under imperfect user behavior is.
+
+That is also why pricing transparency and product honesty matter so much here. If users can see what high-cardinality labels cost, what hot retention includes, and why some queries are rewritten or rejected, the platform feels like a partner instead of an adversary. Good observability systems do not merely store telemetry. They teach teams how to produce and consume telemetry responsibly enough that the platform stays both affordable and useful as adoption grows.

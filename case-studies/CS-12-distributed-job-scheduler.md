@@ -371,6 +371,10 @@ This architecture works because it turns the scheduler into a set of explicit st
 
 That explicitness is also what makes the system debuggable for operators. When someone asks "why did this task run twice" or "why is this workflow stuck," the answer should come from visible state transitions and lease history rather than from opaque timing behavior hidden inside one monolithic scheduler loop.
 
+It is a control plane built from durable state changes, not a timer loop with wishful thinking around failure.
+
+That difference matters enormously at scale.
+
 ---
 
 ## Step 6: Deep Dives
@@ -557,3 +561,5 @@ Multi-tenancy introduces another layer of nuance. One noisy internal service or 
 Finally, the scheduler's contract with task authors matters just as much as its internal architecture. If handlers are not idempotent, if retry metadata is unclear, if deadlines and backoff behavior are undocumented, or if payloads are too large and too opaque, the platform will keep paying for application-level confusion. The scheduler should help authors succeed by delivering attempt counts, stable task IDs, deadlines, and first-class dead-letter paths. When that contract is strong, the platform can embrace at-least-once delivery confidently. When it is weak, every retry looks like a bug even when the infrastructure is working exactly as designed.
 
 That is why the best schedulers feel less like timer daemons and more like workflow control planes with strong guardrails. They make time-based execution understandable, replayable, and safe under pressure, which is exactly what large organizations need once simple cron jobs stop being enough.
+
+That control-plane framing also keeps the platform honest about growth. As more teams adopt it, the winning move is not to hide complexity but to contain it with clearer workflow state, safer replay primitives, stronger quotas, and better operator visibility by tenant and queue. When those guardrails are present, the scheduler becomes one of the most stabilizing shared systems in the stack instead of just another place where background work disappears mysteriously.

@@ -343,6 +343,10 @@ That separation also shapes the user experience. A queue token is not a cosmetic
 
 That is the real strength of the architecture: it aligns traffic shaping, transactional correctness, and user-visible fairness instead of treating them as separate concerns.
 
+That alignment is what keeps the sale defensible under scrutiny from both users and operators.
+
+That defensibility is a core design goal.
+
 ---
 
 ## Step 6: Deep Dives
@@ -535,3 +539,5 @@ Bot and retry behavior add another uncomfortable but real dimension. The archite
 Finally, great flash-sale systems are designed with operator control in mind. Teams need to slow admissions, pause a problematic section, extend holds slightly when a payment provider wobbles, or disable expensive seat-map features under duress. Those controls should exist before the sale starts, not as ad hoc heroics during the incident. The strongest systems are the ones that know exactly which guarantees are sacred, which surfaces can degrade, and which levers operators can pull without compromising fairness or inventory correctness.
 
 When that mindset is in place, flash-sale architecture becomes much easier to reason about. The goal is not to make every request succeed instantly. The goal is to ensure every admitted user experiences a process that is controlled, explainable, and anchored in real inventory truth.
+
+That is why the strongest systems invest in both backend integrity and fairness-visible UX. Queue position, hold timers, clear payment state, and deterministic timeout behavior are not cosmetic extras layered on top of the real platform. They are the user-facing expression of the reservation model and operator controls underneath. When product language and system truth stay aligned, scarcity feels strict but understandable. When they drift apart, even technically recoverable incidents become trust crises.
